@@ -1,0 +1,15 @@
+{% extends 'home.html' %} {% block content %}
+<div class="profile-container">
+	<div class="icon-container"><img src="{{user.img_url}}" alt="Icon" /></div>
+	<div class="content">
+		<h1>{{user.full_name()}}</h1>
+		<a href="/users/{{user.id}}/edit"><button type="button">Edit</button></a>
+		<form class="delete" action="/users/{{user.id}}/delete" method="POST">
+			<button type="submit">Delete</button>
+		</form>
+	</div>
+</div>
+<br />
+<a href="/users">Go back</a>
+
+{% endblock %}

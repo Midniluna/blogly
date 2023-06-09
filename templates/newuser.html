@@ -1,0 +1,17 @@
+{% extends 'home.html' %} {% block content %}
+
+<form action="/users/new" method="POST">
+	<label for="firstname">First Name: </label
+	><input name="firstname" type="text" /> <br />
+	<label for="lastname">Last Name: </label
+	><input name="lastname" type="text" /> <br />
+	<label for="imgurl">Image Url: </label
+	><input name="imgurl" type="text" /><br />
+	<a href="/users"><button class="cancel" type="button">Cancel</button></a
+	><button class="submit">Save</button>
+</form>
+
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<span class="error">{{ message }}</span>
+{% endfor %} {% endif %} {% endwith %} {% endblock %}
