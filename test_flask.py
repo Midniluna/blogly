@@ -39,7 +39,6 @@ class UserViewsTestCase(TestCase):
     def tearDown(self):
 
         db.session.rollback()
-        User.query.delete()
 
     def test_list_users(self):
         with app.test_client() as client:
