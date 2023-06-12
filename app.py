@@ -6,20 +6,23 @@ from models import db, connect_db, User
 from IPython import embed
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-
-
 app.config['SECRET_KEY'] = "secretsecret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-# db.create_all()
+
+@app.route('/')
+def homepage():
+    return redirect('/users')
 
 @app.route('/users')
-def homepage():
+def userpage():
     """Showing homepage"""
     users = User.query.all()
     # embed()
