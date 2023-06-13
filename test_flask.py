@@ -1,9 +1,8 @@
 from unittest import TestCase
+from flask import Flask
 
-from app import app
-from models import db, User
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
+# from app import app
+from models import db, app, User, Post
 app.config['SQLALCHEMY_ECHO'] = False
 
 # Make Flask errors be real errors, rather than HTML pages with error info
@@ -11,12 +10,6 @@ app.config['TESTING'] = True
 
 # This is a bit of hack, but don't use Flask DebugToolbar
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
-
-# app.app_context().push()
-
-# with app.app_context():
-#     db.drop_all()
-#     db.create_all()
 
 class UserViewsTestCase(TestCase):
 

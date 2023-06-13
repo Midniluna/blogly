@@ -12,8 +12,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-# with app.app_context():
-#     db.create_all()
 
 def get_timestamp():
     date = datetime.datetime.today()
@@ -29,7 +27,7 @@ def homepage():
 def userpage():
     """Showing homepage"""
     users = User.query.all()
-    embed()
+    # embed()
     return render_template('/home.html', users = users)
 
 @app.route('/users/new')
