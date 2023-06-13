@@ -1,21 +1,33 @@
 """Blogly application."""
 
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from IPython import embed
+import datetime
 
 app = Flask(__name__)
+
+# app.app_context().push()
+# with app.app_context():
+#     db.create_all()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+app.config["SQLALCHEMY_RECORD_QUERIES"] = True
 app.config['SECRET_KEY'] = "secretsecret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
+def get_timestamp():
+    date = datetime.datetime.today()
+    day = date.strftime("%m/%d/%Y")
+    time = date.strptime(date.strftime("%H:%M"), '%H:%M').strftime('%I:%M %p')
+    return f"{day} {time}"
 
 @app.route('/')
 def homepage():
@@ -77,3 +89,4 @@ def delete_user(user_id):
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
     return redirect('/users')
+    

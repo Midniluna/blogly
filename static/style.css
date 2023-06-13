@@ -48,3 +48,12 @@ button {
 .delete {
 	display: inline-block;
 }
+
+.content {
+	display: flexbox;
+	flex-direction: column;
+}
+
+.space {
+	margin-bottom: 10px;
+}

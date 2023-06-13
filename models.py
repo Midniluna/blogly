@@ -26,3 +26,21 @@ class User(db.Model):
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     img_url = db.Column(db.String, nullable=True, default = "https://st4.depositphotos.com/3864435/27060/i/1600/depositphotos_270605518-stock-photo-default-avatar-profile-icon-grey.jpg")
+
+class Post(db.Model):
+
+    __tablename__ = "posts"
+
+    def __repr__(self):
+        p = self
+        return f'<Post #{p.id}, title={p.title}, user={p.user_id}>'
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String, nullable = False)
+    content = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.Date, nullable= False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship(User)
+
+# db.create_all()

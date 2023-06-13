@@ -12,11 +12,11 @@ app.config['TESTING'] = True
 # This is a bit of hack, but don't use Flask DebugToolbar
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
-app.app_context().push()
+# app.app_context().push()
 
-with app.app_context():
-    db.drop_all()
-    db.create_all()
+# with app.app_context():
+#     db.drop_all()
+#     db.create_all()
 
 class UserViewsTestCase(TestCase):
 
