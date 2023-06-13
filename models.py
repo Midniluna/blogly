@@ -1,13 +1,23 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = True
+
 
 db = SQLAlchemy()
 
 def connect_db(app):
     """Connect to database."""
-
     db.app = app
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
+    
 
 class User(db.Model):
     """User"""
