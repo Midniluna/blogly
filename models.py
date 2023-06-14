@@ -7,15 +7,6 @@ from flask import Flask
 # env_vars = dotenv_values(".env")
 # DB_URI = env_vars.get("DB_URI")
 
-app = Flask(__name__)
-
-# app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
-
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_ECHO"] = True
-
 db = SQLAlchemy()
 
 def connect_db(app):

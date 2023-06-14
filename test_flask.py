@@ -1,21 +1,36 @@
 from unittest import TestCase
 from flask import Flask
 
-# from app import app
-from models import db, app, User, Post
-app.config['SQLALCHEMY_ECHO'] = False
+from app import app
+from models import db, User, Post
 
-# Make Flask errors be real errors, rather than HTML pages with error info
-app.config['TESTING'] = True
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///blogly_test'
+app.config["SQLALCHEMY_ECHO"] = False
 
-# This is a bit of hack, but don't use Flask DebugToolbar
-app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
 class UserViewsTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.app_context = app.app_context()
+        cls.app_context.push()
+
+        # Create all tables in the database
+        db.create_all()
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+
+        # Remove all tables from the database and close the application context
+        db.drop_all()
+        cls.app_context.pop()
 
     def setUp(self):
         """Adding a sample user"""
-        
+
+        # Clear the User table before each test
         User.query.delete()
 
         user = User(first_name="Doug", last_name="Dimmadome", img_url="https://pbs.twimg.com/media/Ell2E_XX0AMW0xZ.jpg")
@@ -30,20 +45,18 @@ class UserViewsTestCase(TestCase):
         self.user2 = anon
 
     def tearDown(self):
-
         db.session.rollback()
 
     def test_list_users(self):
         with app.test_client() as client:
-            resp = client.get('/users')
+            resp = client.get("/users")
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Doug Dimmadome', html)
+            self.assertIn("Doug Dimmadome", html)
 
     def test_hompage_redirect(self):
         with app.test_client() as client:
-            resp = client.get('/')
+            resp = client.get("/")
             html = resp.get_data(as_text=True)
-
             self.assertEqual(resp.status_code, 302)

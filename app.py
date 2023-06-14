@@ -2,9 +2,18 @@
 
 from flask import Flask, render_template, request, redirect, flash, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, app, connect_db, User, Post
+from models import db, connect_db, User, Post
 from IPython import embed
 import datetime
+
+app = Flask(__name__)
+
+# app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ECHO"] = True
 
 app.config['SECRET_KEY'] = "secretsecret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
