@@ -7,39 +7,21 @@ content %}
 			<h1>{{user.full_name()}}</h1>
 			<a href="/users/{{user.id}}/edit"><button type="button">Edit</button></a>
 			<form class="delete" action="/users/{{user.id}}/delete" method="POST">
-				<button type="submit">Delete</button>
+				<button type="submit" class="delete">Delete</button>
 			</form>
 		</div>
 		<!-- THIS IS WHAT THE BLOG POSTS FORMAT WILL LOOK LIKE -->
-		<!-- Actually. Yeah this is how it's supposed to look -->
-		<!-- <div class="posts-list space">
+		<div class="posts-list space">
 			<h2>Posts</h2>
 			<ul>
-				<li>Example</li>
-				<li>Posts</li>
-				<li>Here</li>
-				<li>Tbh its not as cute but if it's what they want.</li>
+				{% for post in posts %}
+				<li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+				{% endfor %}
 			</ul>
-		</div> -->
-
-		<!-- Ignore this one </3 I liked how this looked but-->
-		<!-- <div class="posts-list space">
-			<div>
-				<h3>STORY HEADLINE</h3>
-				<p>Story contents blah blah</p>
-				<sub>username</sub>
-			</div>
-			<div>
-				<h3>STORY HEADLINE</h3>
-				<p>Story contents blah blah</p>
-				<sub>username</sub>
-			</div>
-			<div>
-				<h3>STORY HEADLINE</h3>
-				<p>Story contents blah blah</p>
-				<sub>username</sub>
-			</div>
-		</div> -->
+		</div>
+		<a href="/users/{{user.id}}/posts/new"
+			><button class="post" type="button">Add Post</button></a
+		>
 	</div>
 </div>
 <br />

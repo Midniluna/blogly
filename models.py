@@ -2,14 +2,16 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
-from dotenv import dotenv_values
+# from dotenv import dotenv_values
 
-env_vars = dotenv_values(".env")
-DB_URI = env_vars.get("DB_URI")
+# env_vars = dotenv_values(".env")
+# DB_URI = env_vars.get("DB_URI")
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
+# app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
@@ -42,6 +44,9 @@ class User(db.Model):
     last_name = db.Column(db.String, nullable=False)
     img_url = db.Column(db.String, nullable=True, default = "https://st4.depositphotos.com/3864435/27060/i/1600/depositphotos_270605518-stock-photo-default-avatar-profile-icon-grey.jpg")
 
+    posts = db.relationship("Post", backref="users", cascade="all, delete")
+    # If you add passive_deletes=True to the relationship methods, it keeps the post and leaves user_id in posts blank
+
 class Post(db.Model):
 
     __tablename__ = "posts"
@@ -54,6 +59,5 @@ class Post(db.Model):
     title = db.Column(db.String, nullable = False)
     content = db.Column(db.String, nullable=False)
     created_at = db.Column(db.Date, nullable= False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    user = db.relationship(User)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

@@ -1,0 +1,16 @@
+{% extends 'home.html' %} {% block title %}Submit Post{% endblock %} {% block
+content %}
+<h1>{{post.title}}</h1>
+<p>{{post.content}}</p>
+
+<sub>By {{post.users.full_name()}}</sub>
+<br />
+<br />
+<br />
+<br />
+<a href="/users/{{post.users.id}}"><button>Cancel</button></a>
+<a href="/posts/{{post.id}}/edit"><button class="post">Edit</button></a>
+<form class="delete" action="/posts/{{post.id}}/delete" method="POST">
+	<button type="submit" class="delete">Delete</button>
+</form>
+{% endblock %}

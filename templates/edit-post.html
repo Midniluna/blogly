@@ -1,0 +1,23 @@
+{% extends 'home.html' %} {% block title %}Submit Post{% endblock %} {% block
+content %}
+<h1>Edit Post for {{post.user.full_name()}}</h1>
+<div class="container">
+	<form id="edit-post" action="/posts/{{post.id}}/edit" method="POST">
+		<div class="input">
+			<label for="title">Title:</label>
+			<br /><input name="title" type="text" value="{{post.title}}" />
+		</div>
+		<br />
+		<div class="input">
+			<label for="content">Content:</label>
+			<br /><textarea name="content" rows="10" cols="40">
+{{post.content}}</textarea
+			>
+		</div>
+		<button class="post">Submit Post</button>
+	</form>
+</div>
+<br />
+<a href="/users/{{post.user.id}}">Go back</a>
+
+{% endblock %}
