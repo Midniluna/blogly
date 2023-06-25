@@ -1,0 +1,23 @@
+{% extends 'home.html' %} {% block title %}New Tag{% endblock %} {% block
+content %}
+
+<h1>Create a tag</h1>
+<div class="container">
+	<form action="/tags/new" method="POST">
+		<label for="name">Name: </label
+		><input name="name" type="text" placeholder="Enter a name for the tag" />
+		<a href="/tags"><button class="delete" type="button">Cancel</button></a
+		><button class="post">Add</button>
+	</form>
+</div>
+
+<!-- FLASH MESSAGES -->
+
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<p class="error">{{ message }}</p>
+{% endfor %} {% endif %} {% endwith %}
+
+<!-- FLASH MESSAGES -->
+
+{% endblock %}

@@ -7,6 +7,8 @@ from models import db, User, Post
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///blogly_test'
 app.config["SQLALCHEMY_ECHO"] = False
 
+# python test_flask.py
+# python3 -m unittest test_flask.py
 
 class UserViewsTestCase(TestCase):
     @classmethod

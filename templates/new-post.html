@@ -12,6 +12,21 @@ content %}
 			<label for="content">Content:</label>
 			<br /><textarea name="content" rows="10" cols="40"></textarea>
 		</div>
+		<br />
+		<p>Select Tags:</p>
+		{% for tag in tags %}
+		<input
+			style="width: fit-content"
+			name="tag"
+			type="checkbox"
+			value="{{tag.id}}"
+		/><label for="Tag">{{tag.name}}</label>
+		<br />
+		{% endfor %}
+		<br />
+
+		<!-- % for tag in post.tag %
+		<a class="tag" href="/tags/tag.id"><i>tag.name</i></a> % endfor % -->
 		<button class="post">Submit Post</button>
 	</form>
 </div>

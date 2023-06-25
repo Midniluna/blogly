@@ -1,0 +1,29 @@
+{% extends 'home.html' %} {% block title %}Modify Tag{% endblock %} {% block
+content %}
+
+<h1>Modify a Tag</h1>
+<div class="container">
+	<form action="/tags/{{tag.id}}/edit" method="POST">
+		<label for="name">New name: </label
+		><input
+			name="name"
+			type="text"
+			placeholder="Enter a new name for the tag"
+			value="{{tag.name}}"
+		/>
+		<a href="/tags/{{tag.id}}"
+			><button class="delete" type="button">Cancel</button></a
+		><button class="post">Submit</button>
+	</form>
+</div>
+
+<!-- FLASH MESSAGES -->
+
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<p class="error">{{ message }}</p>
+{% endfor %} {% endif %} {% endwith %}
+
+<!-- FLASH MESSAGES -->
+
+{% endblock %}

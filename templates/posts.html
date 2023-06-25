@@ -1,0 +1,21 @@
+{% extends 'home.html' %} {% block title %}Posts{% endblock %} {% block content
+%}
+
+<h1>Posts</h1>
+<ul style="list-style-type: none">
+	{% for post in posts %}
+	<li style="padding: 0">
+		<h3>
+			<a style="text-decoration: none" href="/posts/{{post.id}}"
+				>{{post.title}}</a
+			>
+		</h3>
+		<p>By: <a href="/users/{{post.users.id}}">{{post.users.full_name()}}</a></p>
+	</li>
+	{% endfor %}
+</ul>
+<br />
+<br />
+<a href="/users">Return home</a>
+
+{% endblock %}

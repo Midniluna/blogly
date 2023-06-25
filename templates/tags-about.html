@@ -1,0 +1,26 @@
+{% extends 'home.html' %} {% block title %}Tags{% endblock %} {% block content
+%}
+
+<h1>Posts tagged with: {{tag.name}}</h1>
+
+<ul style="list-style-type: none">
+	{% for post in tag.posts %}
+	<li>
+		<h3>
+			<a style="text-decoration: none" href="/posts/{{post.id}}"
+				>{{post.title}}</a
+			>
+		</h3>
+	</li>
+	{% endfor %}
+</ul>
+
+<a href="/tags/{{tag.id}}/edit"><button class="post">Edit tag</button></a>
+<form class="delete" action="/tags/{{tag.id}}/delete" method="POST">
+	<button type="submit" class="delete">Delete tag</button>
+</form>
+<br />
+<br />
+<a href="/tags">Return to tags</a>
+
+{% endblock %}

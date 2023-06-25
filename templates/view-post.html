@@ -6,6 +6,12 @@ content %}
 <sub>By {{post.users.full_name()}}</sub>
 <br />
 <br />
+<sub>
+	{% for tag in post.tag %}
+	<a class="tag" href="/tags/{{tag.id}}"><i>{{tag.name}}</i></a> {% endfor %}
+</sub>
+<br />
+<br />
 <br />
 <br />
 <a href="/users/{{post.users.id}}"><button>Cancel</button></a>

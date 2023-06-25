@@ -1,6 +1,6 @@
 {% extends 'home.html' %} {% block title %}Submit Post{% endblock %} {% block
 content %}
-<h1>Edit Post for {{post.user.full_name()}}</h1>
+<h1>Edit Post for {{post.users.full_name()}}</h1>
 <div class="container">
 	<form id="edit-post" action="/posts/{{post.id}}/edit" method="POST">
 		<div class="input">
@@ -14,10 +14,23 @@ content %}
 {{post.content}}</textarea
 			>
 		</div>
+		<br />
+		<p>Select Tags:</p>
+		{% for tag in tags %}
+		<input
+			style="width: fit-content"
+			name="tag"
+			type="checkbox"
+			value="{{tag.id}}"
+		/><label for="Tag">{{tag.name}}</label>
+		<br />
+		{% endfor %}
+		<br />
+
 		<button class="post">Submit Post</button>
 	</form>
 </div>
 <br />
-<a href="/users/{{post.user.id}}">Go back</a>
+<a href="/users/{{post.users.id}}">Go back</a>
 
 {% endblock %}
