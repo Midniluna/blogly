@@ -2,7 +2,7 @@
 %}
 
 <h1>Posts</h1>
-<ul style="list-style-type: none">
+<ul style="list-style-type: none; padding: 0">
 	{% for post in posts %}
 	<li style="padding: 0">
 		<h3>
@@ -14,8 +14,5 @@
 	</li>
 	{% endfor %}
 </ul>
-<br />
-<br />
-<a href="/users">Return home</a>
 
 {% endblock %}

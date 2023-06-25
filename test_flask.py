@@ -57,8 +57,8 @@ class UserViewsTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn("Doug Dimmadome", html)
 
-    def test_hompage_redirect(self):
-        with app.test_client() as client:
-            resp = client.get("/")
-            html = resp.get_data(as_text=True)
-            self.assertEqual(resp.status_code, 302)
+    # def test_hompage_redirect(self):
+        # with app.test_client() as client:
+            # resp = client.get("/")
+            # html = resp.get_data(as_text=True)
+            # self.assertEqual(resp.status_code, 302)

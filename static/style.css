@@ -1,6 +1,5 @@
 body {
 	background-color: rgb(238, 238, 238);
-	font-family: Arial, Helvetica, sans-serif;
 }
 
 img {
@@ -9,45 +8,8 @@ img {
 	border-radius: 50%;
 }
 
-input {
-	margin: 5px;
-	padding: 8px;
-	border: 1px solid black;
-	border-radius: 4px;
-	width: 290px;
-}
-
-button {
-	padding: 10px 15px;
-	border: 1px solid black;
-	border-radius: 10px;
-	cursor: pointer;
-	transition: background-color 300ms ease-in-out;
-}
-
-.tag {
-	padding: 3px;
-	color: white;
-	background-color: rgb(38, 78, 255);
-	text-decoration: none;
-	border-radius: 6px;
-}
-
-.post {
-	color: white;
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(38, 78, 255);
-	transition: background-color 300ms ease-in-out;
-}
-
-.delete {
-	color: white;
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(207, 56, 56);
-	transition: background-color 300ms ease-in-out;
-	display: inline-block;
+.content-wrapper {
+	padding: 15px;
 }
 
 .success {
@@ -66,44 +28,4 @@ button {
 	border-radius: 5px;
 	color: white;
 	background-color: rgba(199, 0, 0, 0.5);
-}
-
-.profile-container {
-	display: flex;
-	align-items: flex-start;
-}
-
-.profile-container > div {
-	display: flexbox;
-	position: relative;
-	justify-content: center;
-}
-
-.icon-container {
-	padding: 0 30px;
-	padding-top: 35px;
-}
-
-.content {
-	display: flexbox;
-	flex-direction: column;
-}
-
-.space {
-	margin-bottom: 10px;
-}
-
-button:hover {
-	background-color: rgba(0, 0, 0, 0.274);
-	transition: background-color 300ms ease-in-out;
-}
-
-.post:hover {
-	background-color: rgb(20, 39, 211);
-	transition: background-color 300ms ease-in-out;
-}
-
-.delete:hover {
-	background-color: rgb(167, 32, 32);
-	transition: background-color 300ms ease-in-out;
 }

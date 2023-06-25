@@ -1,0 +1,24 @@
+{% extends 'home.html' %} {% block title %}Submit Post{% endblock %} {% block
+content %}
+<h1>{{post.title}}</h1>
+<p>{{post.content}}</p>
+
+<sub>By <a href="/users/{{post.users.id}}">{{post.users.full_name()}}</a></sub>
+<br />
+<br />
+{% for tag in post.tag %}
+<a href="/tags/{{ tag.id }}"
+	><i class="badge badge-primary">{{ tag.name }}</i></a
+>
+{% endfor %}
+<br />
+<br />
+<br />
+<br />
+<a href="/posts/{{post.id}}/edit"
+	><button class="btn btn-primary">Edit</button></a
+>
+<form action="/posts/{{post.id}}/delete" method="POST">
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}

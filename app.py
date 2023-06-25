@@ -33,7 +33,8 @@ def get_timestamp():
 
 @app.route('/')
 def homepage():
-    return redirect('/users')
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template('home.html', posts=posts)
 
 
 @app.route('/users')
@@ -42,14 +43,14 @@ def userpage():
 
     users = User.query.all()
     # embed()
-    return render_template('/home.html', users = users)
+    return render_template('users/users.html', users = users)
 
 
 @app.route('/users/new')
 def user_form():
     """Shows a form to submit a new user"""
 
-    return render_template('/new-user.html')
+    return render_template('users/new-user.html')
 
 
 @app.route('/users/new', methods=['POST'])
@@ -65,7 +66,7 @@ def submit_user():
         new_user = User(first_name=fname, last_name=lname, img_url=url)
         db.session.add(new_user)
         db.session.commit()
-    return redirect('/users')
+    return redirect('users/users')
 
 
 @app.route('/users/<int:user_id>')
@@ -75,7 +76,7 @@ def show_user(user_id):
     user = User.query.get_or_404(user_id)
     posts = Post.query.filter_by(user_id = user.id)
     # embed()
-    return render_template('/user-details.html', user = user, posts = posts )
+    return render_template('users/user-details.html', user = user, posts = posts )
 
 
 @app.route('/users/<int:user_id>/edit')
@@ -83,7 +84,7 @@ def edit_user(user_id):
     """Shows a form to edit an existing user's details"""
 
     user = User.query.get_or_404(user_id)
-    return render_template('/edit-user.html', user = user)
+    return render_template('users/edit-user.html', user = user)
 
 
 @app.route('/users/<int:user_id>/edit', methods=['POST'])
@@ -102,7 +103,7 @@ def submit_edit(user_id):
         user.last_name = lname
         user.img_url = url
         db.session.commit()
-    return redirect(f'/users/{user_id}')
+    return redirect(f'users/users/{user_id}')
 
 
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
@@ -111,7 +112,7 @@ def delete_user(user_id):
 
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
-    return redirect('/users')
+    return redirect('users/users')
 
 # POSTS ROUTES
     
@@ -121,7 +122,7 @@ def new_post(user_id):
     user = User.query.get_or_404(user_id)
     tags = Tag.query.all()
     # embed()
-    return render_template("/new-post.html", user=user, tags=tags)
+    return render_template("posts/new-post.html", user=user, tags=tags)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
@@ -154,7 +155,7 @@ def view_posts():
 
     posts = Post.query.all()
 
-    return render_template('posts.html', posts=posts)
+    return render_template('posts/posts.html', posts=posts)
 
 
 @app.route('/posts/<int:post_id>')
@@ -162,7 +163,7 @@ def view_post(post_id):
     """Render post details page"""
 
     post = Post.query.get_or_404(post_id)
-    return render_template('view-post.html', post = post)
+    return render_template('posts/view-post.html', post = post)
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):
@@ -170,7 +171,7 @@ def edit_post(post_id):
 
     post = Post.query.get_or_404(post_id)
     tags = Tag.query.all()
-    return render_template('edit-post.html', post = post, tags=tags)
+    return render_template('posts/edit-post.html', post = post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
@@ -208,7 +209,7 @@ def list_tags():
     """Generate list of tags"""
 
     tags = Tag.query.all()
-    return render_template('/tags.html', tags = tags)
+    return render_template('tags/tags.html', tags = tags)
 
 
 @app.route('/tags/<int:tag_id>')
@@ -216,14 +217,14 @@ def view_tag(tag_id):
     """Get data about a single tag"""
 
     tag = Tag.query.get_or_404(tag_id)
-    return render_template('/tags-about.html', tag=tag)
+    return render_template('tags/tags-about.html', tag=tag)
 
 
 @app.route('/tags/new')
 def make_tag():
     """Render form to submit a new tag"""
 
-    return render_template('/new-tag.html')
+    return render_template('tags/new-tag.html')
 
 
 @app.route('/tags/new', methods=["POST"])
@@ -257,7 +258,7 @@ def edit_tag(tag_id):
     
     tag = Tag.query.get_or_404(tag_id)
 
-    return render_template('edit-tag.html', tag=tag)
+    return render_template('tags/edit-tag.html', tag=tag)
 
 
 @app.route('/tags/<int:tag_id>/edit', methods=["POST"])

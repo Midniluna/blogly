@@ -1,7 +1,7 @@
 {% extends 'home.html' %} {% block title %}Submit Post{% endblock %} {% block
 content %}
 <h1>Add Post for {{user.full_name()}}</h1>
-<div class="container">
+<div>
 	<form id="new-post" action="/users/{{user.id}}/posts/new" method="POST">
 		<div class="input">
 			<label for="title">Title:</label>
@@ -27,7 +27,7 @@ content %}
 
 		<!-- % for tag in post.tag %
 		<a class="tag" href="/tags/tag.id"><i>tag.name</i></a> % endfor % -->
-		<button class="post">Submit Post</button>
+		<button class="btn btn-primary">Submit Post</button>
 	</form>
 </div>
 <br />

@@ -6,3 +6,5 @@
 
 // console.log("hi");
 // console.log($(".cancel"));
+
+$(".dropdown-toggle").dropdown();

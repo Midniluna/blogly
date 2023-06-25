@@ -1,6 +1,7 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+import datetime
 
 # from dotenv import dotenv_values
 
@@ -49,9 +50,14 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String, nullable = False)
     content = db.Column(db.String, nullable=False)
-    created_at = db.Column(db.Date, nullable= False)
-
+    created_at = db.Column(db.DateTime, nullable= False, default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    @property
+    def friendly_date(self):
+        """Return nicely-formatted date."""
+
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
     
 
 class Tag(db.Model):

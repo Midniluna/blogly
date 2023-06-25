@@ -5,9 +5,22 @@ content %}
 	<div class="content">
 		<div class="userinfo space">
 			<h1>{{user.full_name()}}</h1>
-			<a href="/users/{{user.id}}/edit"><button type="button">Edit</button></a>
-			<form class="delete" action="/users/{{user.id}}/delete" method="POST">
-				<button type="submit" class="delete">Delete</button>
+			<a href="/users/{{user.id}}/edit"
+				><button
+					type="button"
+					class="btn btn-secondary"
+					style="display: inline-block"
+				>
+					Edit
+				</button></a
+			>
+			<form
+				class="delete"
+				action="/users/{{user.id}}/delete"
+				method="POST"
+				style="display: inline-block"
+			>
+				<button type="submit" class="btn btn-danger">Delete</button>
 			</form>
 		</div>
 		<!-- THIS IS WHAT THE BLOG POSTS FORMAT WILL LOOK LIKE -->
@@ -20,11 +33,9 @@ content %}
 			</ul>
 		</div>
 		<a href="/users/{{user.id}}/posts/new"
-			><button class="post" type="button">Add Post</button></a
+			><button class="btn btn-primary" type="button">Add Post</button></a
 		>
 	</div>
 </div>
-<br />
-<a href="/users">Go back</a>
 
 {% endblock %}

@@ -2,12 +2,14 @@
 content %}
 
 <h1>Create a tag</h1>
-<div class="container">
+<div>
 	<form action="/tags/new" method="POST">
 		<label for="name">Name: </label
 		><input name="name" type="text" placeholder="Enter a name for the tag" />
-		<a href="/tags"><button class="delete" type="button">Cancel</button></a
-		><button class="post">Add</button>
+		<a href="/tags"
+			><button class="btn btn-secondary" type="button">Cancel</button></a
+		>
+		<button class="btn btn-primary">Add</button>
 	</form>
 </div>
 
