@@ -1,26 +1,39 @@
 """Blogly application."""
 
 from flask import Flask, render_template, request, redirect, flash, request
-from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post, Tag, PostTag
+# from flask_debugtoolbar import DebugToolbarExtension
+from models import db, connect_db, User, Post, Tag
 from IPython import embed
 import datetime
+import sys
 
 app = Flask(__name__)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
+# Just put app.app_context().push() in ipython after running app.py to use in-app stuff
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+def get_database_uri():
+     if "python3 -m unittest" in sys.argv:
+         return 'postgresql:///blogly_test'
+     return 'postgresql:///blogly'
+
+def get_echo_TorF():
+    if "python3 -m unittest" in sys.argv:
+         return False
+    return True
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = get_database_uri()
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_ECHO"] = True
+app.config["SQLALCHEMY_ECHO"] = get_echo_TorF()
 
 app.config['SECRET_KEY'] = "secretsecret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
 
 connect_db(app)
+
 
 def get_timestamp():
     date = datetime.datetime.today()
@@ -34,6 +47,7 @@ def get_timestamp():
 @app.route('/')
 def homepage():
     posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    embed()
     return render_template('home.html', posts=posts)
 
 
@@ -66,7 +80,7 @@ def submit_user():
         new_user = User(first_name=fname, last_name=lname, img_url=url)
         db.session.add(new_user)
         db.session.commit()
-    return redirect('users/users')
+    return redirect('/users')
 
 
 @app.route('/users/<int:user_id>')
@@ -103,7 +117,7 @@ def submit_edit(user_id):
         user.last_name = lname
         user.img_url = url
         db.session.commit()
-    return redirect(f'users/users/{user_id}')
+    return redirect(f'/users/{user_id}')
 
 
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
@@ -112,7 +126,7 @@ def delete_user(user_id):
 
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
-    return redirect('users/users')
+    return redirect('/users')
 
 # POSTS ROUTES
     
@@ -130,7 +144,6 @@ def create_post(user_id):
     """Submit new post"""
     title = request.form['title']
     content = request.form['content']
-    # embed()
     tag_ids = [int(num) for num in request.form.getlist('tag')]
     tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
 
@@ -140,13 +153,6 @@ def create_post(user_id):
     db.session.add(new_post)
     db.session.commit()
     print("Success")
-
-    # title = request.form['title']
-    # content = request.form['content']
-    # date = datetime.datetime.today()
-    # new_post = Post(title=title, content=content, created_at=date, user_id=user_id)
-    # db.session.add(new_post)
-    # db.session.commit()
     return redirect(f'/users/{user_id}')
 
 @app.route('/posts')
@@ -200,7 +206,6 @@ def delete_post(post_id):
     return redirect(f'/users/{post.user_id}')
 
 # Same tag name gives IntegrityError (give error "this tag already exists")
-# upper('text here') uppercases first letter, rest lowercase
 
 # TAG ROUTES
 
